@@ -1,0 +1,28 @@
+{
+  "name": "work-web",
+  "authors": [
+    "Henrique Freire <h.freire@live.com>"
+  ],
+  "description": "Trabalho da Disciplina de Desenvolvimento de Interfaces Web PUC Minas",
+  "main": "index.html",
+  "keywords": [
+    "sistema",
+    "login",
+    "blog"
+  ],
+  "directory":"assets/components",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "fontawesome": "^5.0.13"
+  }
+}
