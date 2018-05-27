@@ -1,9 +1,11 @@
+// Inicia o banco
+openDB();
+var user;
 $(document).ready(() => {
-    
-    $("#btnCadastrarOption").click(() => {
+    $(".open-cadastro").click(() => {
         $("#modalCadastro").modal("show");
     });
-    $("#btnLoginOption").click(() => {
+    $(".open-login").click(() => {
         $("#modalLogin").modal("show");
     });
 
@@ -21,28 +23,16 @@ $(document).ready(() => {
         cadastrar(user);
 
     });
-    $("#btnLogin").click((e) => {
+    $("#btnLogin").click((e)=>{
         e.preventDefault();
-        let email = $("#emailLogin").val();
-        let senha = $("#senhaLogin").val();
-
+        let user = $("#emailLogin").val();
+        let pass =  $("#senhaLogin").val();
+        checkLogin(user, pass);
+        
     });
 
 
 });
 function cadastrar(user){
-    if(!db_app){
-        openDB();
-    }else{
-        insertUser(user);
-    }
-}
-function login(){
-    if(!db_app){
-        openDB();
-    }else{
-        insert()
-    }
-    
-
+    insertUser(user);
 }

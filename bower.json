@@ -10,7 +10,6 @@
     "login",
     "blog"
   ],
-  "directory":"assets/components",
   "license": "MIT",
   "homepage": "",
   "ignore": [

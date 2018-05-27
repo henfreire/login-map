@@ -10,7 +10,7 @@
 // variáveis que armazenam a conexão ao banco de dados
 var db_app;
 // Constantes para nomes do banco de dados e ObjectStores
-const CONST_DB_APP = "dbAcademico";
+const CONST_DB_APP = "dbSystem";
 const CONST_TB_USER = "tb_user";
 
 function initDBEngine() {
@@ -37,26 +37,29 @@ function displayMessage(msg) {
 }
 
 function openDB() {
-    request = indexedDB.open(CONST_DB_APP);
+    return new Promise((resolve, reject) => {
+        request = indexedDB.open(CONST_DB_APP);
 
-    request.onerror = function (event) {
-        alert("Você não habilitou minha web app para usar IndexedDB?!");
-    };
-    request.onsuccess = function (event) {
-        db_app = request.result;
-    };
-    request.onupgradeneeded = function (events) {
-        let store = event.currentTarget.result.createObjectStore(
-            CONST_TB_USER, { keyPath: 'id', autoIncrement: true });
+        request.onerror = function (event) {
+            alert("Você não habilitou minha web app para usar IndexedDB?!");
+            reject(event);
+        };
+        request.onsuccess = function (event) {
+            resolve(db_app = request.result);
+        };
+        request.onupgradeneeded = function (events) {
+            let store = event.currentTarget.result.createObjectStore(
+                CONST_TB_USER, { keyPath: 'id', autoIncrement: true });
 
-        store.createIndex('nome', 'nome', { unique: true });
-        store.createIndex('senha', 'senha', { unique: false });
-        store.createIndex('tipo', 'tipo', { unique: true });
+            store.createIndex('nome', 'nome', { unique: true });
+            store.createIndex('senha', 'senha', { unique: false });
+            store.createIndex('tipo', 'tipo', { unique: true });
 
-    };
+        };
+    });
 }
 
-function insert(colection, dados){
+function insert(colection, dados) {
     let store = getObjectStore(colection, 'readwrite');
     let req;
     req = store.add(dados);
@@ -67,18 +70,76 @@ function insert(colection, dados){
         console.error("Erro", this.error);
     };
 }
-function insertUser(dados){
+function insertUser(dados) {
     let store = getObjectStore(CONST_TB_USER, 'readwrite');
-    let req;
-    req = store.add(dados);
-    req.onsuccess = function (evt) {
-        console.log("Inserido");
-    };
-    req.onerror = function () {
-        console.error("Erro", this.error);
-    };
+    let dadosSalvos = store.openCursor();
+    dadosSalvos.onsuccess = function (evt) {
+        let cursor = event.target.result;
+        if (cursor) {
+            dados.tipo = "visitante";
+        } else {
+            dados.tipo = "admin";
+        }
+        req = store.add(dados);
+        req.onsuccess = function (evt) {
+            console.log("Inserido");
+        };
+        req.onerror = function () {
+            console.error("Erro", this.error);
+        };
+    }
 }
 
+function checkLogin(user, pass) {
+        let store = getObjectStore(CONST_TB_USER, 'readonly');
+        let req = store.openCursor();
+        req.onsuccess = function (event) {
+            let cursor = event.target.result;
+            if (cursor) {
+                req = store.get(cursor.key);
+                req.onsuccess = function (event) {
+                    let value = event.target.result;
+                    if (value.hasOwnProperty("email")) {
+                        if (value.email == user && value.senha == pass) {
+                            user = {
+                                nome: value.nome
+                            }
+                            localStorage.user = JSON.stringify(user);
+                            window.location.href = "admin.html";
+                        }
+                    } else {
+                        cursor.continue();
+                    }
+                }
+            } else {
+                console.log("Login erro");
+            }
+        };
+        req.onerror = function (event) {
+            console.log(event.target.errorCode);
+        };
+
+}
+
+function getAllUsers(callback) {
+    let store = getObjectStore(CONST_TB_USER, 'readonly');
+    let req = store.openCursor();
+    req.onsuccess = function (event) {
+        let cursor = event.target.result;
+
+        if (cursor) {
+            req = store.get(cursor.key);
+            req.onsuccess = function (event) {
+                let value = event.target.result;
+                callback(value);
+            }
+            cursor.continue();
+        }
+    };
+    req.onerror = function (event) {
+        displayMessage("Erro ao obter contatos:", event.target.errorCode);
+    };
+}
 function getAllContatos(callback) {
     let store = getObjectStore(CONST_OS_CONTATO, 'readonly');
     let req = store.openCursor();
@@ -105,7 +166,7 @@ function getContato(id, callback) {
     let req = store.get(id);
     req.onsuccess = function (event) {
         let record = req.result;
-        callback (record);
+        callback(record);
     };
     req.onerror = function (event) {
         displayMessage("Contato não encontrado:", event.target.errorCode);
@@ -147,20 +208,5 @@ function updateContato(id, contato) {
     };
 }
 
-function loadDadosContatos(store) {
-    // Isso é o que os dados de nossos clientes será.
-    const dadosContatos = [
-        { nome: "Rafael Souza", telefone: "31-99856-3358", email: "rafaels11@hotmail.com" },
-        { nome: "Tereza Cristina", telefone: "31-99667-4457", email: "terezac2017@gmail.com" },
-        { nome: "Antônio Teixeira", telefone: "31-99614-4885", email: "antonioteixeira@gmail.com" },
-        { nome: "Catarina Alves", telefone: "31-98863-4452", email: "catarina.alves@globo.com" },
-        { nome: "Manuela Silva", telefone: "31-98477-4367", email: "manusilva@gmail.com" },
-        { nome: "Afonso Cardoso", telefone: "31-98554-4547", email: "acbh1987@gmail.com" }
-    ];
 
-    let req;
-    dadosContatos.forEach((element, index) => { req = store.add(element) });
-    req.onsuccess = function (evt) { };
-    req.onerror = function () { };
-}
 
