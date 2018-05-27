@@ -51,9 +51,9 @@ function openDB() {
             let store = event.currentTarget.result.createObjectStore(
                 CONST_TB_USER, { keyPath: 'id', autoIncrement: true });
 
-            store.createIndex('nome', 'nome', { unique: true });
+            store.createIndex('nome', 'nome', { unique: false });
             store.createIndex('senha', 'senha', { unique: false });
-            store.createIndex('tipo', 'tipo', { unique: true });
+            store.createIndex('tipo', 'tipo', { unique: false });
 
         };
     });
@@ -82,43 +82,55 @@ function insertUser(dados) {
         }
         req = store.add(dados);
         req.onsuccess = function (evt) {
+            $("#modalCadastro").modal("hide");
+            $(".mensagem-sucesso").text("Usuário cadastrado com sucesso");
+            $("#modalSucesso").modal("show");
             console.log("Inserido");
         };
         req.onerror = function () {
             console.error("Erro", this.error);
+            $(".mensagem-erro").text("Erro ao cadastrar usuário");
+            $("#modalErro").modal("show");
         };
     }
 }
 
 function checkLogin(user, pass) {
-        let store = getObjectStore(CONST_TB_USER, 'readonly');
-        let req = store.openCursor();
-        req.onsuccess = function (event) {
-            let cursor = event.target.result;
-            if (cursor) {
-                req = store.get(cursor.key);
-                req.onsuccess = function (event) {
-                    let value = event.target.result;
-                    if (value.hasOwnProperty("email")) {
-                        if (value.email == user && value.senha == pass) {
-                            user = {
-                                nome: value.nome,
-                                tipo: value.tipo
-                            }
-                            localStorage.user = JSON.stringify(user);
-                            window.location.href = "admin.html";
+    let store = getObjectStore(CONST_TB_USER, 'readonly');
+    let req = store.openCursor();
+    req.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            req = store.get(cursor.key);
+            req.onsuccess = function (event) {
+                let value = event.target.result;
+                if (value.hasOwnProperty("email")) {
+                    if (value.email == user && value.senha == pass) {
+                        user = {
+                            nome: value.nome,
+                            tipo: value.tipo
                         }
+                        localStorage.user = JSON.stringify(user);
+                        window.location.href = "admin.html";
                     } else {
                         cursor.continue();
                     }
+                } else {
+                    cursor.continue();
                 }
-            } else {
-                console.log("Login erro");
+               
             }
-        };
-        req.onerror = function (event) {
-            console.log(event.target.errorCode);
-        };
+
+        } else {
+            $(".mensagem-erro").text("Usuário ou senha inválidos");
+            $("#modalErro").modal("show");
+
+            console.log("Login erro");
+        }
+    };
+    req.onerror = function (event) {
+        console.log(event.target.errorCode);
+    };
 
 }
 
@@ -161,18 +173,6 @@ function getAllContatos(callback) {
     };
 }
 
-function getContato(id, callback) {
-    let store = getObjectStore(CONST_OS_CONTATO, 'readwrite');
-    if (typeof id == "string") { id = parseInt(id); }
-    let req = store.get(id);
-    req.onsuccess = function (event) {
-        let record = req.result;
-        callback(record);
-    };
-    req.onerror = function (event) {
-        displayMessage("Contato não encontrado:", event.target.errorCode);
-    };
-}
 
 function deleteContato(id) {
     let store = getObjectStore(CONST_OS_CONTATO, 'readwrite');
