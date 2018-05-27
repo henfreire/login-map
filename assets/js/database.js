@@ -102,7 +102,8 @@ function checkLogin(user, pass) {
                     if (value.hasOwnProperty("email")) {
                         if (value.email == user && value.senha == pass) {
                             user = {
-                                nome: value.nome
+                                nome: value.nome,
+                                tipo: value.tipo
                             }
                             localStorage.user = JSON.stringify(user);
                             window.location.href = "admin.html";

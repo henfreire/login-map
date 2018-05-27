@@ -8,5 +8,6 @@ $(document).ready(()=>{
 
 function showUser(){
     let user = JSON.parse(localStorage.user);
-    $(".user-display-name").text(user.nome);
+    $(".user-display-name").text("Olá "+  user.tipo  + ", " +  user.nome);
+   
 }
