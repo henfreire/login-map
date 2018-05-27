@@ -54,102 +54,21 @@
             </div>
         </nav>
     </header>
-    <div class="row">
-        <aside class="col-sm-3">
-            <ul class="list-group">
-                <li class="list-group-item">Dahboard</li>
-                <li class="list-group-item">Opção 2</li>
-                <li class="list-group-item">Opção 3</li>
-                <li class="list-group-item">Opção 4</li>
-                <li class="list-group-item">Opção 5</li>
-                <li class="list-group-item">Opção 6</li>
-                <li class="list-group-item">Opção 7</li>
-                <li class="list-group-item">Opção 9</li>
-        </aside>
-        <main class="col-sm-9">
-            <div class="container">
-                <h3>AQUI</h3>
 
-            </div>
-        </main>
-    </div>
-    <div>
-        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formLogin">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Email</label>
-                                    <input type="email" class="form-control" id="emailLogin" placeholder="Email" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Senha</label>
-                                    <input type="password" class="form-control" id="senhaLogin" placeholder="Password" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" id="btnLogin">login</button>
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Cadastro</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formCadastro">
-                            <div class="form-row">
-                                <div class="form-group  col-md-12">
-                                    <label for="inputAddress">Nome</label>
-                                    <input type="text" class="form-control" id="nomeCadastro" name="nome" placeholder="Nome">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Email</label>
-                                    <input type="email" class="form-control" id="emailCadastro" placeholder="Email" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Senha</label>
-                                    <input type="password" class="form-control" id="senhaCadastro" placeholder="Senha" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" id="btnCadastrar">Cadastrar</button>
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div id="map"></div>
 
 
-            <script src="assets/js/database.js"></script>
-            <script src="assets/components/jquery/dist/jquery.min.js"></script>
-            <script src="assets/components/jquery-ui/jquery-ui.min.js"></script>
-            <script src="assets/components/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="assets/components/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
+    <script src="assets/js/database.js"></script>
+    <script src="assets/components/jquery/dist/jquery.min.js"></script>
+    <script src="assets/components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="assets/components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="assets/components/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 
-            <script src="assets/js/admin.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/map.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzPjEqJqwsEkUNd66b6KlkOuXU5EsmWQg&libraries=drawing&callback=initMap"
+    async defer></script>
 
 </body>
 
