@@ -14,6 +14,11 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/components/bootstrap/dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="assets/components/summernote/dist/summernote.css" type="text/css">
+    <link rel="stylesheet" href="assets/components/summernote/dist/summernote-lite.css" type="text/css">
+
+
+
 
     <!-- App CSS -->
     <link rel="stylesheet" href="assets/css/app.css" type="text/css">
@@ -55,22 +60,139 @@
             </div>
         </nav>
     </header>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="title">Administração</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Novo Post</h5>
+                        <p class="card-text">Adicione novos posts ao blog</p>
+                        <a href="#" class="btn btn-primary add-post">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Visualizar Todos</h5>
+                        <p class="card-text">Visualize todos os posts já criados</p>
+                        <a href="#" class="btn btn-primary show-all-posts">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Comentários</h5>
+                        <p class="card-text">Veja os comentários no seu blog</p>
+                        <a href="#" class="btn btn-primary show-all-comments">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
     <div id="map"></div>
+    <!-- Modals-->
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalAddPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Título Post</label>
+                            <input type="text" class="form-control" id="newTitlePost" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="newResumePost">Resumo</label>
+                            <textarea class="form-control" id="newResumePost" rows="3"></textarea>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Conteúdo</label>
+                            <textarea class="form-control" id="summernote" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="newPostSave">Salvar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalShowAllPosts" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Todos Posts</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalShowAllComments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Todos Comentários</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+  
     <script src="assets/js/database.js"></script>
     <script src="assets/components/jquery/dist/jquery.min.js"></script>
     <script src="assets/components/jquery-ui/jquery-ui.min.js"></script>
     <script src="assets/components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="assets/components/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
+    <script src="assets/components/summernote/dist/summernote.js"></script>
+    <script src="assets/components/summernote/dist/summernote-lite.js"></script>
+
 
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/map.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzPjEqJqwsEkUNd66b6KlkOuXU5EsmWQg&libraries=drawing&callback=initMap"
     async defer></script>
-
 </body>
 
 </html>
