@@ -46,12 +46,15 @@
                 </ul>
                 <div>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item nav-perfil">
                             <a href="#" id="btnPerfil" class="nav-link text-light">
                                 <i class="fa fa-user"></i>
                                 <span class="user-display-name">User Teste</span>
                             </a>
                         </li>
+                        <li class="nav-item nav-home">
+                                <a href="index.html" id="btnGoHome" class="nav-link text-light open-home">Home</a>
+                            </li>
                         <li class="nav-item">
                             <a href="#" id="btnLogout" class="nav-link text-light logout">Sair</a>
                         </li>
@@ -122,9 +125,10 @@
                             <label for="exampleFormControlInput1">Título Post</label>
                             <input type="text" class="form-control" id="newTitlePost" placeholder="">
                         </div>
-                        <div class="form-group">
-                            <label for="newResumePost">Resumo</label>
-                            <textarea class="form-control" id="newResumePost" rows="3"></textarea>
+                        <div class="form-group imagem-destaque" >
+                            <label for="newResumePost">Imagem Destaque</label>
+                            <input type="file" name="" id="picImageNewPost">
+                            <img src="" alt="" id="featuredImgNewPost" class="img-thumbnail">
                         </div>
 
                         <div class="form-group">
@@ -179,7 +183,7 @@
         </div>
     </div>
   
-    <script src="assets/js/database.js"></script>
+    <script src="assets/js/indexDbService.js"></script>
     <script src="assets/components/jquery/dist/jquery.min.js"></script>
     <script src="assets/components/jquery-ui/jquery-ui.min.js"></script>
     <script src="assets/components/bootstrap/dist/js/bootstrap.js"></script>
@@ -187,7 +191,7 @@
     <script src="assets/components/summernote/dist/summernote.js"></script>
     <script src="assets/components/summernote/dist/summernote-lite.js"></script>
 
-
+    <script src="assets/js/app.js"></script>
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/map.js"></script>
 

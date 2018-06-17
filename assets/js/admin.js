@@ -19,6 +19,17 @@ $(document).ready(()=>{
     $(".show-all-comments").click(()=>{
         $("#modalShowAllComments").modal("show");
     });
+    $("#newPostSave").click((e)=>{
+        e.preventDefault();
+        actions().postar();
+     });
+
+    $("#picImageNewPost").on("change", (evt)=>{
+        carregaImagem(evt).then((data)=>{
+            $("#featuredImgNewPost").attr("src", data);
+        })
+        .catch(e => console.log(e));
+    });
 });
 
 function showUser(){
@@ -26,8 +37,11 @@ function showUser(){
     $(".user-display-name").text("Olá "+  user.tipo  + ", " +  user.nome); 
 }
 function addPost(){
-    $('#summernote').summernote();
-
+    $('#summernote').summernote({
+        tabsize: 5,
+        height: 300
+    });
+    
 }
 function showAllPosts(){
 

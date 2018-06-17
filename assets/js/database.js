@@ -12,6 +12,8 @@ var db_app;
 // Constantes para nomes do banco de dados e ObjectStores
 const CONST_DB_APP = "dbSystem";
 const CONST_TB_USER = "tb_user";
+const CONST_TB_BLOG = "tb_blog";
+const CONST_TB_COMENTARIO = "tb_comentario";
 
 function initDBEngine() {
     // Na linha abaixo, você deve incluir os prefixos do navegador que você vai testar.
@@ -55,6 +57,23 @@ function openDB() {
             store.createIndex('senha', 'senha', { unique: false });
             store.createIndex('tipo', 'tipo', { unique: false });
 
+            let blog = event.currentTarget.result.createObjectStore(
+                CONST_TB_USER, { keyPath: 'id', autoIncrement: true });
+            blog.createIndex('titulo', 'titulo', { unique: false });
+            blog.createIndex('descricao', 'descricao', { unique: false });
+            blog.createIndex('imagem', 'imagem', { unique: false });
+            blog.createIndex('autor', 'autor', { unique: false });
+            blog.createIndex('data', 'data', { unique: false });
+            blog.createIndex('nCurtidas', 'nCurtidas', { unique: false });
+            blog.createIndex('nComentarios', 'nComentarios', { unique: false });
+
+            let comentario = event.currentTarget.result.createObjectStore(
+                CONST_TB_COMENTARIO, { keyPath: 'id', autoIncrement: true });
+            blog.createIndex('idUsuario', 'idUsuario', { unique: false });
+            blog.createIndex('idPost', 'idPost', { unique: false });
+            blog.createIndex('texto', 'imagem', { unique: false });
+    
+
         };
     });
 }
@@ -94,7 +113,30 @@ function insertUser(dados) {
         };
     }
 }
-
+function insertNewPost(dados) {
+    let store = getObjectStore(CONST_TB_USER, 'readwrite');
+    let dadosSalvos = store.openCursor();
+    dadosSalvos.onsuccess = function (evt) {
+        let cursor = event.target.result;
+        if (cursor) {
+            dados.tipo = "visitante";
+        } else {
+            dados.tipo = "admin";
+        }
+        req = store.add(dados);
+        req.onsuccess = function (evt) {
+            $("#modalCadastro").modal("hide");
+            $(".mensagem-sucesso").text("Usuário cadastrado com sucesso");
+            $("#modalSucesso").modal("show");
+            console.log("Inserido");
+        };
+        req.onerror = function () {
+            console.error("Erro", this.error);
+            $(".mensagem-erro").text("Erro ao cadastrar usuário");
+            $("#modalErro").modal("show");
+        };
+    }
+}
 function checkLogin(user, pass) {
     let store = getObjectStore(CONST_TB_USER, 'readonly');
     let req = store.openCursor();

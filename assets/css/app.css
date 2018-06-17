@@ -144,3 +144,7 @@
 .title-under-line{
 
 }
+.nav-admin, .nav-perfil, .nav-login, .nav-cadastro, .nav-logout{
+  display: none;
+}
+
