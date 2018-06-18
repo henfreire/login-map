@@ -22,6 +22,11 @@ $(document).ready(()=>{
     $("#newPostSave").click((e)=>{
         e.preventDefault();
         actions().postar();
+        $("#modalAddPost").modal("hide");
+        $("#modalSucesso").modal("show");
+        $(".mensagem-sucesso").text("Post Adicionado com sucesso!");
+        $("#modalSucesso").modal("show");
+        
      });
 
     $("#picImageNewPost").on("change", (evt)=>{
